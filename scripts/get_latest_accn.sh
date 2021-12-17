@@ -9,13 +9,13 @@ fi
 #jq ".services[${Record}]" services.json
 Current=`pwd`
 cd /var/lib/minidlna/movies/Other/Church/Services/2021tillNow
-serviceDate=`jq ".services[${Record}]" $Current\services.json | jq '.["serviceDate"]' | sed 's/st//g;s/nd//g;s/rd//g;s/th//g;s/\"//g'`
+serviceDate=`jq ".services[${Record}]" $Current/services.json | jq '.["serviceDate"]' | sed 's/st//g;s/nd//g;s/rd//g;s/th//g;s/\"//g'`
 Date=`date "+%Y-%m-%d" -d "$serviceDate"`
-morningRecording=`jq ".services[${Record}]" $Current\services.json | jq '.["morningRecording"]' | sed 's/\"//g'`
-morningMinisters=`jq ".services[${Record}]" $Current\services.json | jq '.["morningMinisters"]' | sed 's/\((.*)\)//g;s/,/_/g;s/\"//g;s/\ //g'`
-afternoonRecording=`jq ".services[${Record}]" $Current\services.json | jq '.["afternoonRecording"]' | sed 's/\"//g'`
-afternoonMinisters=`jq ".services[${Record}]" $Current\services.json | jq '.["afternoonMinisters"]' | sed 's/\((.*)\)//g' | sed 's/,/_/g' | sed 's/\ //g' | sed 's/\"//g'`
-eveningRecording=`jq ".services[${Record}]" $Current\services.json | jq '.["eveningRecording"]' | sed 's/\"//g'`
+morningRecording=`jq ".services[${Record}]" $Current/services.json | jq '.["morningRecording"]' | sed 's/\"//g'`
+morningMinisters=`jq ".services[${Record}]" $Current/services.json | jq '.["morningMinisters"]' | sed 's/\((.*)\)//g;s/,/_/g;s/\"//g;s/\ //g'`
+afternoonRecording=`jq ".services[${Record}]" $Current/services.json | jq '.["afternoonRecording"]' | sed 's/\"//g'`
+afternoonMinisters=`jq ".services[${Record}]" $Current/services.json | jq '.["afternoonMinisters"]' | sed 's/\((.*)\)//g' | sed 's/,/_/g' | sed 's/\ //g' | sed 's/\"//g'`
+eveningRecording=`jq ".services[${Record}]" $Current/services.json | jq '.["eveningRecording"]' | sed 's/\"//g'`
 FilenameAM="ACCN-$morningMinisters-$Date AM"
 FilenamePM="ACCN-$afternoonMinisters-$Date PM"
 FilenameSinging="ACCN-Singing-$Date"
