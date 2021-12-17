@@ -26,7 +26,7 @@ FilenameSinging="ACCN-Singing-$Date"
 #echo wget $afternoonRecording -O $FilenamePM.mp3
 #echo id3tool -t "$FilenamePM" -r "$afternoonMinisters" -y `date "+%Y"` "$FilenamePM.mp3"
 wget -c -O "$FilenameAM.mp3" $morningRecording
-id3tool -t \"$FilenameAM\" -r "$morningMinisters" -y `date "+%Y"` \"$FilenameAM.mp3\"
+id3tool -t "$FilenameAM" -r "$morningMinisters" -y `date "+%Y"` "$FilenameAM.mp3"
 wget -c -O "$FilenamePM.mp3" $afternoonRecording
-id3tool -t \"$FilenamePM\" -r "$afternoonMinisters" -y `date "+%Y"` \"$FilenamePM.mp3\"
+id3tool -t "$FilenamePM" -r "$afternoonMinisters" -y `date "+%Y"` "$FilenamePM.mp3"
 rm services.json
