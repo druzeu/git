@@ -39,4 +39,4 @@ wget -c -O "$FilenamePM.mp3" $afternoonRecording
 id3tool -t "$FilenamePM" -r "$afternoonMinisters" -y `date "+%Y"` "$FilenamePM.mp3"
 wget -c -O "$FilenameSinging.mp3" $eveningRecording
 id3tool -t "$FilenameSinging" -r "Singing" -y `date "+%Y"` "$FilenameSinging.mp3"
-rm services.json
+rm $Current/services.json
