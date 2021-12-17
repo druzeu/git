@@ -7,7 +7,7 @@ else
   Record=$1
 fi
 #jq ".services[${Record}]" services.json
-
+cd /var/lib/minidlna/movies/Other/Church/Services/2021tillNow
 serviceDate=`jq ".services[${Record}]" services.json | jq '.["serviceDate"]' | sed 's/st//g;s/nd//g;s/rd//g;s/th//g;s/\"//g'`
 Date=`date "+%Y-%m-%d" -d "$serviceDate"`
 morningRecording=`jq ".services[${Record}]" services.json | jq '.["morningRecording"]' | sed 's/\"//g'`
