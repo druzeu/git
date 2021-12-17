@@ -1,6 +1,13 @@
 #!/bin/bash
 wget https://www.dl.dropboxusercontent.com/s/6fx39oixavoqcgt/services.json
-Record=1
+if [[ $1 == '' ]]
+then
+  Record=0
+else
+  Record=$1
+fi
+#jq ".services[${Record}]" services.json
+
 serviceDate=`jq ".services[${Record}]" services.json | jq '.["serviceDate"]' | sed 's/st//g;s/nd//g;s/rd//g;s/th//g;s/\"//g'`
 Date=`date "+%Y-%m-%d" -d "$serviceDate"`
 morningRecording=`jq ".services[${Record}]" services.json | jq '.["morningRecording"]' | sed 's/\"//g'`
@@ -29,4 +36,6 @@ wget -c -O "$FilenameAM.mp3" $morningRecording
 id3tool -t "$FilenameAM" -r "$morningMinisters" -y `date "+%Y"` "$FilenameAM.mp3"
 wget -c -O "$FilenamePM.mp3" $afternoonRecording
 id3tool -t "$FilenamePM" -r "$afternoonMinisters" -y `date "+%Y"` "$FilenamePM.mp3"
+wget -c -O "$FilenameSinging.mp3" $eveningRecording
+id3tool -t "$FilenameSinging" -r "Singing" -y `date "+%Y"` "$FilenameSinging.mp3"
 rm services.json
