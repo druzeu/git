@@ -10,11 +10,6 @@ else
   Record=$1
 fi
 
-if [[ $2 != '' ]]
-then
-  jq ".services[${Record}]" services.json
-  exit
-fi
 Current=`pwd`
 cd /var/lib/minidlna/movies/Other/Church/Services/2021tillNow
 serviceDate=`jq ".services[${Record}]" $Current/services.json | jq '.["serviceDate"]' | sed 's/st//g;s/nd//g;s/rd//g;s/th//g;s/\"//g'`
@@ -28,20 +23,26 @@ eveningRecording=`jq ".services[${Record}]" $Current/services.json | jq '.["even
 FilenameAM="ACCN-$morningMinisters-$Date AM"
 FilenamePM="ACCN-$afternoonMinisters-$Date PM"
 FilenameSinging="ACCN-Singing-$Date"
-#echo $Date
-#echo $serviceDate
-#echo $morningRecording
-#echo $morningMinisters
-#echo $afternoonRecording
-#echo $afternoonMinisters
-#echo $eveningRecording
-#echo $FilenameAM
-#echo $FilenamePM
-#echo $FilenameSinging
-#echo wget $morningRecording -O $FilenameAM.mp3
-#echo id3tool -t "$FilenameAM" -r "$morningMinisters" -y `date "+%Y"` "$FilenameAM.mp3"
-#echo wget $afternoonRecording -O $FilenamePM.mp3
-#echo id3tool -t "$FilenamePM" -r "$afternoonMinisters" -y `date "+%Y"` "$FilenamePM.mp3"
+
+if [[ $2 != '' ]]
+then
+  jq ".services[${Record}]" services.json
+  echo $Date
+  echo $serviceDate
+  echo $morningRecording
+  echo $morningMinisters
+  echo $afternoonRecording
+  echo $afternoonMinisters
+  echo $eveningRecording
+  echo $FilenameAM
+  echo $FilenamePM
+  echo $FilenameSinging
+  echo wget $morningRecording -O $FilenameAM.mp3
+  echo id3tool -t "$FilenameAM" -r "$morningMinisters" -y `date "+%Y"` "$FilenameAM.mp3"
+  echo wget $afternoonRecording -O $FilenamePM.mp3
+  echo id3tool -t "$FilenamePM" -r "$afternoonMinisters" -y `date "+%Y"` "$FilenamePM.mp3"
+  exit
+fi
 wget -c -O "$FilenameAM.mp3" $morningRecording
 id3tool -t "$FilenameAM" -r "$morningMinisters" -y `date "+%Y"` "$FilenameAM.mp3"
 wget -c -O "$FilenamePM.mp3" $afternoonRecording
