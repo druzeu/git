@@ -11,6 +11,7 @@ Current=`pwd`
 cd /var/lib/minidlna/movies/Other/Church/Services/2021tillNow
 serviceDate=`jq ".services[${Record}]" $Current/services.json | jq '.["serviceDate"]' | sed 's/st//g;s/nd//g;s/rd//g;s/th//g;s/\"//g'`
 Date=`date "+%Y-%m-%d" -d "$serviceDate"`
+DateYear=`date "+%Y" -d "$serviceDate"`
 morningRecording=`jq ".services[${Record}]" $Current/services.json | jq '.["morningRecording"]' | sed 's/\"//g'`
 morningMinisters=`jq ".services[${Record}]" $Current/services.json | jq '.["morningMinisters"]' | sed 's/\((.*)\)//g;s/,/_/g;s/\"//g;s/\ //g'`
 afternoonRecording=`jq ".services[${Record}]" $Current/services.json | jq '.["afternoonRecording"]' | sed 's/\"//g'`
@@ -38,5 +39,5 @@ id3tool -t "$FilenameAM" -r "$morningMinisters" -y `date "+%Y"` "$FilenameAM.mp3
 wget -c -O "$FilenamePM.mp3" $afternoonRecording
 id3tool -t "$FilenamePM" -r "$afternoonMinisters" -y `date "+%Y"` "$FilenamePM.mp3"
 wget -c -O "$FilenameSinging.mp3" $eveningRecording
-id3tool -t "$FilenameSinging" -r "Singing" -y `date "+%Y"` "$FilenameSinging.mp3"
+id3tool -t "$FilenameSinging" -r "Singing" -y $DateYear "$FilenameSinging.mp3"
 rm $Current/services.json
