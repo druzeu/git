@@ -37,17 +37,17 @@ then
   echo $FilenamePM
   echo $FilenameSinging
   echo wget $morningRecording -O $FilenameAM.mp3
-  echo id3tool -t "$FilenameAM" -r "$morningMinisters" -y `date "+%Y"` "$FilenameAM.mp3"
+  echo id3tool -t "$FilenameAM" -r "$morningMinisters" -y $DateYear "$FilenameAM.mp3"
   echo wget $afternoonRecording -O $FilenamePM.mp3
-  echo id3tool -t "$FilenamePM" -r "$afternoonMinisters" -y `date "+%Y"` "$FilenamePM.mp3"
+  echo id3tool -t "$FilenamePM" -r "$afternoonMinisters" -y $DateYear "$FilenamePM.mp3"
   exit
 fi
 
 cd /var/lib/minidlna/movies/Other/Church/Services/2021tillNow
 wget -c -O "$FilenameAM.mp3" $morningRecording
-id3tool -t "$FilenameAM" -r "$morningMinisters" -y `date "+%Y"` "$FilenameAM.mp3"
+id3tool -t "$FilenameAM" -r "$morningMinisters" -y $DateYear "$FilenameAM.mp3"
 wget -c -O "$FilenamePM.mp3" $afternoonRecording
-id3tool -t "$FilenamePM" -r "$afternoonMinisters" -y `date "+%Y"` "$FilenamePM.mp3"
+id3tool -t "$FilenamePM" -r "$afternoonMinisters" -y $DateYear "$FilenamePM.mp3"
 wget -c -O "$FilenameSinging.mp3" $eveningRecording
 id3tool -t "$FilenameSinging" -r "Singing" -y $DateYear "$FilenameSinging.mp3"
 rm $Current/services.json
