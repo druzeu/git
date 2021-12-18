@@ -1,5 +1,5 @@
 #!/bin/bash
-if [[ ! -f "services.json"]]
+if [[ ! -f services.json ]]
 then
   wget https://www.dl.dropboxusercontent.com/s/6fx39oixavoqcgt/services.json
 fi
