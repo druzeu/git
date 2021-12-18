@@ -10,6 +10,7 @@ else
   Record=$1
 fi
 
+Current=`pwd`
 serviceDate=`jq ".services[${Record}]" $Current/services.json | jq '.["serviceDate"]' | sed 's/st//g;s/nd//g;s/rd//g;s/th//g;s/\"//g'`
 Date=`date "+%Y-%m-%d" -d "$serviceDate"`
 DateYear=`date "+%Y" -d "$serviceDate"`
@@ -42,7 +43,6 @@ then
   exit
 fi
 
-Current=`pwd`
 cd /var/lib/minidlna/movies/Other/Church/Services/2021tillNow
 wget -c -O "$FilenameAM.mp3" $morningRecording
 id3tool -t "$FilenameAM" -r "$morningMinisters" -y `date "+%Y"` "$FilenameAM.mp3"
