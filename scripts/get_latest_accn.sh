@@ -43,7 +43,7 @@ then
   exit
 fi
 
-cd /var/lib/minidlna/movies/Other/Church/Services/2021tillNow
+cd /var/lib/minidlna/movies/Other/Church/Services/$DateYear
 wget -c -O "$FilenameAM.mp3" $morningRecording
 id3tool -t "$FilenameAM" -r "$morningMinisters" -y $DateYear "$FilenameAM.mp3"
 wget -c -O "$FilenamePM.mp3" $afternoonRecording
