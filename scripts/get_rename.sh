@@ -21,7 +21,7 @@ afternoonMinisters=`jq ".services[${Record}]" $Current/services.json | jq '.["af
 eveningRecording=`jq ".services[${Record}]" $Current/services.json | jq '.["eveningRecording"]' | sed 's/\"//g'`
 FilenameAM="ACCN-$morningMinisters-$Date AM"
 FilenamePM="ACCN-$afternoonMinisters-$Date PM"
-FilenameSinging="ACCN-Singing-$Date"
+FilenameSinging="Singing-$Date"
 
 if [[ $2 != '' ]]
 then
@@ -50,3 +50,4 @@ echo mv "$FilenameAM.mp3" "$newAM AM.mp3"
 mv "$FilenameAM.mp3" "$newAM AM.mp3"
 echo mv "$FilenamePM.mp3" "$newPM PM.mp3"
 mv "$FilenamePM.mp3" "$newPM PM.mp3"
+mv "ACCN-$FilenameSinging.mp3" "$FilenameSinging.mp3"
