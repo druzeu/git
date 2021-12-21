@@ -16,8 +16,10 @@ Date=`date "+%Y-%m-%d" -d "$serviceDate"`
 DateYear=`date "+%Y" -d "$serviceDate"`
 morningRecording=`jq ".services[${Record}]" $Current/services.json | jq '.["morningRecording"]' | sed 's/\"//g'`
 morningMinisters=`jq ".services[${Record}]" $Current/services.json | jq '.["morningMinisters"]' | sed 's/\((.*)\)//g;s/,/_/g;s/\"//g;s/\ //g'`
+morningReading=`jq ".services[${Record}]" $Current/services.json | jq '.["morningReading"]' | sed 's/\((.*)\)//g;s/,/_/g;s/\"//g'`
 afternoonRecording=`jq ".services[${Record}]" $Current/services.json | jq '.["afternoonRecording"]' | sed 's/\"//g'`
 afternoonMinisters=`jq ".services[${Record}]" $Current/services.json | jq '.["afternoonMinisters"]' | sed 's/\((.*)\)//g' | sed 's/,/_/g' | sed 's/\ //g' | sed 's/\"//g'`
+afternoonReading=`jq ".services[${Record}]" $Current/services.json | jq '.["afternoonReading"]' | sed 's/\((.*)\)//g;s/,/_/g;s/\"//g'`
 eveningRecording=`jq ".services[${Record}]" $Current/services.json | jq '.["eveningRecording"]' | sed 's/\"//g'`
 FilenameAM="ACCN-$morningMinisters-$Date AM"
 FilenamePM="ACCN-$afternoonMinisters-$Date PM"
@@ -30,8 +32,10 @@ then
   echo $serviceDate
   echo $morningRecording
   echo $morningMinisters
+  echo $morningReading
   echo $afternoonRecording
   echo $afternoonMinisters
+  echo $afternoonReading
   echo $eveningRecording
   echo $FilenameAM
   echo $FilenamePM
@@ -45,9 +49,9 @@ fi
 
 cd /var/lib/minidlna/movies/Other/Church/Services/$DateYear
 wget -c -O "$FilenameAM.mp3" $morningRecording
-id3tool -t "$FilenameAM" -r "$morningMinisters" -y $DateYear "$FilenameAM.mp3"
+id3tool -t "$FilenameAM" -c "$morningReading"-r "$morningMinisters" -y $DateYear "$FilenameAM.mp3"
 wget -c -O "$FilenamePM.mp3" $afternoonRecording
-id3tool -t "$FilenamePM" -r "$afternoonMinisters" -y $DateYear "$FilenamePM.mp3"
+id3tool -t "$FilenamePM" -c "$afternoonReading" -r "$afternoonMinisters" -y $DateYear "$FilenamePM.mp3"
 wget -c -O "$FilenameSinging.mp3" $eveningRecording
 id3tool -t "$FilenameSinging" -r "Singing" -y $DateYear "$FilenameSinging.mp3"
 rm $Current/services.json
