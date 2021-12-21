@@ -19,8 +19,8 @@ morningMinisters=`jq ".services[${Record}]" $Current/services.json | jq '.["morn
 afternoonRecording=`jq ".services[${Record}]" $Current/services.json | jq '.["afternoonRecording"]' | sed 's/\"//g'`
 afternoonMinisters=`jq ".services[${Record}]" $Current/services.json | jq '.["afternoonMinisters"]' | sed 's/\((.*)\)//g' | sed 's/,/_/g' | sed 's/\ //g' | sed 's/\"//g'`
 eveningRecording=`jq ".services[${Record}]" $Current/services.json | jq '.["eveningRecording"]' | sed 's/\"//g'`
-FilenameAM="ACCN-$morningMinisters-$Date AM"
-FilenamePM="ACCN-$afternoonMinisters-$Date PM"
+FilenameAM="$morningMinisters-$Date AM"
+FilenamePM="$afternoonMinisters-$Date PM"
 FilenameSinging="Singing-$Date"
 
 if [[ $2 != '' ]]
@@ -42,12 +42,6 @@ then
   echo id3tool -t "$FilenamePM" -r "$afternoonMinisters" -y $DateYear "$FilenamePM.mp3"
   exit
 fi
-newAM="$morningMinisters-$Date"
-newPM="$afternoonMinisters-$Date"
-cd /var/lib/minidlna/movies/Other/Church/Services/$DateYear
-echo "$Record $Record $Record $Record $Record"
-echo mv "$Date AM.mp3" "$newAM AM.mp3"
-mv "$Date AM.mp3" "$newAM AM.mp3"
-echo mv "$Date PM.mp3" "$newPM PM.mp3"
-mv "$Date PM.mp3" "$newPM PM.mp3"
-#mv "ACCN-$FilenameSinging.mp3" "$FilenameSinging.mp3"
+id3tool -t "$FilenameAM" -c "$morningReading"-r "$morningMinisters" -y $DateYear "$FilenameAM.mp3"
+id3tool -t "$FilenamePM" -c "$afternoonReading" -r "$afternoonMinisters" -y $DateYear "$FilenamePM.mp3"
+id3tool -t "$FilenameSinging" -r "Singing" -y $DateYear "$FilenameSinging.mp3"

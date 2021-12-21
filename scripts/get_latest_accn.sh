@@ -23,7 +23,7 @@ afternoonReading=`jq ".services[${Record}]" $Current/services.json | jq '.["afte
 eveningRecording=`jq ".services[${Record}]" $Current/services.json | jq '.["eveningRecording"]' | sed 's/\"//g'`
 FilenameAM="$morningMinisters-$Date AM"
 FilenamePM="$afternoonMinisters-$Date PM"
-FilenameSinging="ACCN-Singing-$Date"
+FilenameSinging="Singing-$Date"
 
 if [[ $2 != '' ]]
 then
