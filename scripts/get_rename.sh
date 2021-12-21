@@ -42,8 +42,9 @@ then
   echo id3tool -t "$FilenamePM" -r "$afternoonMinisters" -y $DateYear "$FilenamePM.mp3"
   exit
 fi
-
+newAM="$morningMinisters_$Date"
+newPM="$afternoonMinisters_$Date"
 cd /var/lib/minidlna/movies/Other/Church/Services/$DateYear
 echo "$Record $Record $Record $Record $Record"
-echo mv "$Date AM.mp3" "$FilenameAM.mp3"
-echo mv "$Date PM.mp3" "$FilenamePM.mp3"
+echo mv "$FilenameAM.mp3" "$newAM"
+echo mv "$FilenamePM.mp3" "$newPM"
