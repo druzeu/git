@@ -45,6 +45,6 @@ then
   exit
 fi
 cd /var/lib/minidlna/movies/Other/Church/Services/$DateYear
-id3tool -t "$FilenameAM" -c "$morningReading" -r "$morningMinisters" -y $DateYear "$FilenameAM.mp3"
-id3tool -t "$FilenamePM" -c "$afternoonReading" -r "$afternoonMinisters" -y $DateYear "$FilenamePM.mp3"
+id3tool -t "$FilenameAM" -n "$morningReading" -r "$morningMinisters" -y $DateYear "$FilenameAM.mp3"
+id3tool -t "$FilenamePM" -n "$afternoonReading" -r "$afternoonMinisters" -y $DateYear "$FilenamePM.mp3"
 id3tool -t "$FilenameSinging" -r "Singing" -y $DateYear "$FilenameSinging.mp3"
