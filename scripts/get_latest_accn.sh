@@ -21,8 +21,8 @@ afternoonRecording=`jq ".services[${Record}]" $Current/services.json | jq '.["af
 afternoonMinisters=`jq ".services[${Record}]" $Current/services.json | jq '.["afternoonMinisters"]' | sed 's/\((.*)\)//g' | sed 's/,/_/g' | sed 's/\ //g' | sed 's/\"//g'`
 afternoonReading=`jq ".services[${Record}]" $Current/services.json | jq '.["afternoonReading"]' | sed 's/\((.*)\)//g;s/,/_/g;s/\"//g'`
 eveningRecording=`jq ".services[${Record}]" $Current/services.json | jq '.["eveningRecording"]' | sed 's/\"//g'`
-FilenameAM="ACCN-$morningMinisters-$Date AM"
-FilenamePM="ACCN-$afternoonMinisters-$Date PM"
+FilenameAM="$morningMinisters-$Date AM"
+FilenamePM="$afternoonMinisters-$Date PM"
 FilenameSinging="ACCN-Singing-$Date"
 
 if [[ $2 != '' ]]
