@@ -1,7 +1,9 @@
 #!/bin/bash
+DEBUG="-q"
+
 if [[ ! -f services.json ]]
 then
-  wget https://www.dl.dropboxusercontent.com/s/6fx39oixavoqcgt/services.json
+  wget $DEBUG https://www.dl.dropboxusercontent.com/s/6fx39oixavoqcgt/services.json
 fi
 if [[ $1 == '' ]]
 then
@@ -48,10 +50,10 @@ then
 fi
 
 cd /var/lib/minidlna/movies/Other/Church/Services/$DateYear
-wget -c -O "$FilenameAM.mp3" $morningRecording
+wget $DEBUG -c -O "$FilenameAM.mp3" $morningRecording
 id3tool -t "$FilenameAM" -n "$morningReading" -r "$morningMinisters" -y $DateYear "$FilenameAM.mp3"
-wget -c -O "$FilenamePM.mp3" $afternoonRecording
+wget $DEBUG -c -O "$FilenamePM.mp3" $afternoonRecording
 id3tool -t "$FilenamePM" -n "$afternoonReading" -r "$afternoonMinisters" -y $DateYear "$FilenamePM.mp3"
-wget -c -O "$FilenameSinging.mp3" $eveningRecording
+wget $DEBUG -c -O "$FilenameSinging.mp3" $eveningRecording
 id3tool -t "$FilenameSinging" -r "Singing" -y $DateYear "$FilenameSinging.mp3"
 rm $Current/services.json
